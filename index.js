@@ -47,7 +47,7 @@ function init () {
 (EMPLOYEE TRACKER V1.0.0)
             
 What would you like to do?`,
-            choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role']
+            choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role', 'Exit']
         }
     ]).then((choice) => {
             switch(choice.choice) {
@@ -64,7 +64,7 @@ What would you like to do?`,
                     });
                     break;
                 case 'View all employees':
-                    db.query(`SELECT * FROM employee`, function (err, results) {
+                    db.query(`SELECT employee.id AS ID, employee.first_name AS FirstName, employee.last_name AS LastName, role.title AS Role, role.salary AS Salary, department.name AS Department, employee.manager_id AS ManagerID FROM employee JOIN role on employee.role_id = role.id JOIN department on role.department_id = department.id ORDER BY ID`, function (err, results) {
                         table(results);
                         return endOfQuestion();
                     });
@@ -152,10 +152,66 @@ What would you like to do?`,
                     })
                     break;
                 case 'Update an employee role':
+                    db.query('SELECT * FROM role', function (err, results) {
+                        const roles = results.map(({ title, id }) => ({ 'name': title, 'value': id }))
+
+                        db.query('SELECT * FROM employee', function (err, results) {
+                          const employees = results.map(({ first_name, last_name, id }) => ({ 'name': first_name + " " + last_name, 'value': id }))
+                          const managers = results.map(({ first_name, last_name, id }) => ({ 'name': first_name + " " + last_name, 'value': id }))
+                          managers.push({'name': 'None', 'value': null})
+                          inquirer.prompt([
+                            {
+                              type: 'list',
+                              name: 'employee',
+                              message: `Select the employee you would like to edit:`,
+                              choices: employees,
+                            },
+                            {
+                              type: 'list',
+                              name: 'role',
+                              message: `Select this employee's new role:`,
+                              choices: roles
+                            },
+                            {
+                              type: 'list',
+                              name: 'change',
+                              message: `Do you want to change this employee's manager?`,
+                              choices: ['Yes', 'No']
+                            },
+                            {
+                              type: 'list',
+                              name: 'manager',
+                              message: `Select a new manager for this employee:`,
+                              choices: managers,
+                              when: (answers) => answers.change === 'Yes'
+                            },
+                          ]).then(function (answers) {
+                              if (answers.change === 'No') {
+                                db.query('UPDATE employee SET roles_id = ? WHERE id = ?', [answers.role, answers.employee], (err, results) => {
+                                  console.log(`Employee ID ${answers.employee} has been updated.`);
+                                  return endOfQuestion();
+                                });
+                              }
+                
+                              if (answers.change === 'Yes') {
+                                db.query('UPDATE employee SET role_id = ?, manager_id = ? WHERE id = ?', [answers.role, answers.manager, answers.employee], (err, results) => {
+                                  if (err) throw err;
+                                  console.log(`Employee ID ${answers.employee} has been updated.`);
+                                  return endOfQuestion();
+                                });
+                              }
+                            })
+                        });
+                      });
+                      break;
+                    case `Exit`:
+                      db.end();
+                      console.log('Goodbye!')
             
         }
     })
 }
+
 function endOfQuestion() {
     inquirer
         .prompt([
