@@ -21,19 +21,19 @@ VALUES ('Manager', 75000, 3),
        ('Quality Assurance', 56000, 3);
 
 -- Insert data into employee with predefined names and roles
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
-VALUES (1, 'John', 'Smith', 1, NULL), -- Manager
-       (2, 'Robert', 'Johnson', 2, 1), -- Engineer, managed by John Smith
-       (3, 'Michael', 'Williams', 3, 1), -- Sales Representative, managed by John Smith
-       (4, 'William', 'Jones', 4, NULL), -- Marketing Specialist
-       (5, 'David', 'Brown', 5, NULL), -- Finance Analyst
-       (6, 'Linda', 'Davis', 6, NULL), -- HR Coordinator
-       (7, 'Sarah', 'Miller', 1, NULL), -- Manager
-       (8, 'Karen', 'Wilson', 2, 7), -- Engineer, managed by Sarah Miller
-       (9, 'Emily', 'Taylor', 3, 7), -- Sales Representative, managed by Sarah Miller
-       (10, 'Michael', 'Anderson', 4, NULL), -- Marketing Specialist
-       (11, 'Daniel', 'Thompson', 5, NULL), -- Finance Analyst
-       (12, 'Sophia', 'Lee', 7, NULL), -- Data Analyst
-       (13, 'Jessica', 'Hall', 8, NULL), -- Product Manager
-       (14, 'Matthew', 'Young', 3, 1), -- Sales Representative, managed by John Smith
-       (15, 'Olivia', 'Clark', 9, NULL); -- Customer Support
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ('John', 'Smith', 1, NULL), -- Manager
+       ('Robert', 'Johnson', 2, 1), -- Engineer, managed by John Smith
+       ('Michael', 'Williams', 3, 1), -- Sales Representative, managed by John Smith
+       ('William', 'Jones', 4, NULL), -- Marketing Specialist
+       ('David', 'Brown', 5, NULL), -- Finance Analyst
+       ('Linda', 'Davis', 6, NULL), -- HR Coordinator
+       ('Sarah', 'Miller', 1, NULL), -- Manager
+       ('Karen', 'Wilson', 2, 7), -- Engineer, managed by Sarah Miller
+       ('Emily', 'Taylor', 3, 7), -- Sales Representative, managed by Sarah Miller
+       ('Michael', 'Anderson', 4, NULL), -- Marketing Specialist
+       ('Daniel', 'Thompson', 5, NULL), -- Finance Analyst
+       ('Sophia', 'Lee', 7, NULL), -- Data Analyst
+       ('Jessica', 'Hall', 8, NULL), -- Product Manager
+       ('Matthew', 'Young', 3, 1), -- Sales Representative, managed by John Smith
+       ('Olivia', 'Clark', 9, NULL); -- Customer Support
