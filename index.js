@@ -17,29 +17,29 @@ ___________              .__                               ___________          
 (EMPLOYEE TRACKER V1.0.0)
             
 What would you like to do?`,
-            choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role', 'Exit']
+            choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add A Department', 'Add A Role', 'Add An Employee', 'Update An Employee Role', 'Exit']
         }
     ]).then((choice) => {
             switch(choice.choice) {
-                case 'View all departments':
+                case 'View All Departments':
                     viewDepartments();
                     break;                
-                case 'View all roles':
+                case 'View All Roles':
                     viewRoles();
                     break;
-                case 'View all employees':
+                case 'View All Employees':
                     viewEmployees();
                     break;
-                case 'Add a department':
+                case 'Add A Department':
                     addDepartment();
                     break;
-                case 'Add a role':
+                case 'Add A Role':
                     addRole();
                     break;
-                case 'Add an employee':
+                case 'Add An Employee':
                     addEmployee();
                     break;
-                case 'Update an employee role':
+                case 'Update An Employee Role':
                     updateEmployee();
                       break;
                 case `Exit`:
