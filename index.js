@@ -2,16 +2,7 @@ const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const { Console } = require('console');
 const { Transform } = require('stream');
-
-const db = mysql.createConnection(
-    {
-      host: 'localhost',
-      user: 'root',
-      password: 'root',
-      database: 'employee_db'
-    },
-    console.log(`Server running...`)
-  );
+const db = require('./db/connection') 
 
 function table(input) {
 // @see https://stackoverflow.com/a/67859384
