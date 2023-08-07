@@ -7,7 +7,7 @@ const db = mysql.createConnection(
       password: 'root',
       database: 'employee_db'
     },
-    console.log(`Server running...`)
+    console.log(`Application starting!`)
   );
 
   module.exports = db
